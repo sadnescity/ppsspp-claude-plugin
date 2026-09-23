@@ -1,3 +1,7 @@
+---
+description: "PPSSPP reverse engineering workflows: find code that writes to RAM, cheat search for unknown values, RAM before/after comparison, verify ASM patches, thread inspection, HLE symbol-guided exploration, live memory patching, GE display list analysis, break on GPU events, GPU performance. Use when planning or executing PSP runtime debugging tasks."
+---
+
 # PPSSPP Reverse Engineering Workflows
 
 ## Workflow A: Find What Code Writes to a RAM Address

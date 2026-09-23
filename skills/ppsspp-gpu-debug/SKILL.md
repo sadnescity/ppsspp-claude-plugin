@@ -1,3 +1,7 @@
+---
+description: "PPSSPP GPU/GE debugging tools: framebuffers, GE display list listing and disassembly, GPU state, stats, vertices and matrices, texture/CLUT/depth/stencil dumps, GE breakpoints and break-on-event. Use when debugging PSP graphics, finding the draw call behind an on-screen element, or dumping textures and buffers."
+---
+
 # PPSSPP GPU & GE Debugging Tools
 
 ## Framebuffers (2 tools)

@@ -1,3 +1,7 @@
+---
+description: "PPSSPP CPU debugging and memory tools: pause/resume/step, registers, MIPS disassembly and single-instruction assembly, CPU breakpoints, memory watchpoints (memchecks), symbol lookup, memory read/write/search. Use when debugging PSP code, setting breakpoints or watchpoints, patching instructions live, or inspecting memory."
+---
+
 # PPSSPP CPU Debugging & Memory Tools
 
 ## Execution Control (3 tools)
@@ -26,7 +30,7 @@
 
 | Tool | Parameters | Description |
 |------|-----------|-------------|
-| `disassemble(address, count?, stop?)` | count=16 (max 256), stop="return"\|"none" | Disassemble MIPS instructions at a given address |
+| `disassemble(address, count?, stop?)` | count=16, stop="return"\|"none" | Disassemble MIPS instructions at a given address |
 | `assemble(address, instruction)` | -- | Assemble a single MIPS instruction and write it to memory |
 
 **Parameters:**
@@ -94,7 +98,7 @@
 
 | Tool | Parameters | Description |
 |------|-----------|-------------|
-| `read_memory(address, size)` | max size=65536 | Read bytes from PSP memory. Returns hex string. Works with RAM (0x08800000), VRAM (0x04000000), scratchpad (0x00010000) |
+| `read_memory(address, size)` | -- | Read bytes from PSP memory. Returns hex string. Works with RAM (0x08800000), VRAM (0x04000000), scratchpad (0x00010000) |
 | `write_memory(address, hex)` | -- | Write bytes to PSP memory. Hex string (e.g. "0102AABB"). Hex must have even length |
 
 **Address conventions:**

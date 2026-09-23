@@ -1,7 +1,7 @@
 {
   "name": "ppsspp",
   "description": "PPSSPP PSP emulator MCP integration for Claude Code: CPU debugging, GPU/GE inspection, memory watchpoints, framebuffer dumps, texture/CLUT/depth/stencil inspection, vertex/matrix inspection, GE display list disassembly, GE breakpoints, HLE module listing, save states, game loading, controller input, and more. 47 MCP tools for PSP reverse engineering and testing.",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "author": { "name": "Ombra", "email": "ombra@sadnescity.it" },
   "homepage": "https://github.com/sadnescity/ppsspp-claude-plugin",
   "license": "GPL-2.0"

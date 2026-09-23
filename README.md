@@ -12,7 +12,7 @@ Add the marketplace, then install the plugin:
 
 ```shell
 /plugin marketplace add sadnescity/claude-plugins
-/plugin install ppsspp@sadnescity-claude-plugins
+/plugin install ppsspp@sadnescity-plugins
 ```
 
 ### From local directory

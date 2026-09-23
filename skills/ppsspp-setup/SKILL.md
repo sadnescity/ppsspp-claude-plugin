@@ -1,3 +1,7 @@
+---
+description: "PPSSPP MCP server setup: enabling the built-in MCP server, the Interpreter CPU core requirement, Streamable HTTP transport on port 27077, PSP memory map, tool categories, connection troubleshooting. Use when setting up or troubleshooting the PPSSPP MCP connection."
+---
+
 # PPSSPP MCP Server Setup Guide
 
 ## Key Configuration Points
@@ -81,6 +85,6 @@ Hex format with `0x` prefix is recommended for readability.
 - The server only binds to localhost -- remote connections are not supported, and requests with a non-local `Origin` header get 403
 - Calling a tool name the server does not know returns JSON-RPC error `-32602` (invalid params)
 - Most tools need a game to be running -- load a game first if tools return errors
-- Memory read/write max size is 65536 bytes per call
+- Memory read/write has no fixed size cap, but the whole range must be valid PSP memory
 - GPU buffer dumps (framebuffer, texture, depth, stencil, CLUT) require the emulator to be paused
 - `set_ge_break_on` requires the emulator to be **running** (not paused)

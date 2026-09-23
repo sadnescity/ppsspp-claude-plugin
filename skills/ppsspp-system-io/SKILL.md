@@ -1,3 +1,7 @@
+---
+description: "PPSSPP system control and I/O tools: emulator status, game info, loading/unloading games, save states, controller input (buttons, sequences, analog sticks), kernel threads, HLE modules, screenshots. Use when loading or reloading a game, managing save states, automating input or menu navigation, inspecting threads, or taking screenshots."
+---
+
 # PPSSPP System Control & I/O Tools
 
 ## System Status (2 tools)
