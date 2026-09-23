@@ -12,6 +12,48 @@
 - `get_status` returns: `status` (one of: "no_game", "stepping", "paused", "running"), `gameLoaded` (bool), `stepping` (bool), and `pc` (hex, only when a game is loaded).
 - `get_game_info` returns: `id` (disc ID), `version` (disc version string), and `title`. Returns error if no game is loaded.
 
+## Game Loading (2 tools)
+
+| Tool | Parameters | Description |
+|------|-----------|-------------|
+| `load_game(path)` | path: ISO, CSO, PBP or ELF | Stop whatever is running and boot the given game |
+| `unload_game()` | -- | Stop the running game and return to the menu |
+
+**Notes:**
+- `load_game` always stops the current game first, so it also reloads a file rebuilt in place at the same path.
+- It waits for boot (up to 60 s) and returns `result`, `status` ("running"/"stepping"), `path`, and `title`/`disc_id` when available.
+
+## Save States (3 tools)
+
+| Tool | Parameters | Description |
+|------|-----------|-------------|
+| `save_state(slot?, path?)` | slot: number (default: current slot); path: explicit file | Save a state to a slot or to a file |
+| `load_state(slot?, path?)` | same as `save_state` | Load a state from a slot or from a file |
+| `list_save_states()` | -- | List the slots for the running game with their timestamps |
+
+**Notes:**
+- `path` wins over `slot` and bypasses the slot machinery (no undo copies), e.g. `"/tmp/options.ppst"`.
+- Returns `result` ("success"/"warning"/"failure"), `path`, `slot` (for slot operations) and an optional `message`.
+- Works while paused. Times out after 15 s if the emulator is not running frames or save states are blocked (netplay, achievements hardcore mode).
+- `list_save_states` returns `current_slot` and a `slots` array (`slot`, `used`, and `saved`/`path` when used).
+
+## Controller Input (6 tools)
+
+| Tool | Parameters | Description |
+|------|-----------|-------------|
+| `press_button(button)` | button name(s) | Hold a button until `release_button` |
+| `release_button(button)` | button name(s) | Release a held button |
+| `tap_button(button, duration_ms?)` | duration_ms: default 120, clamped 16-5000 | Press, wait, release |
+| `input_sequence(sequence, hold_ms?, gap_ms?)` | hold_ms default 120, gap_ms default 80 | Play a comma separated list of presses in one call |
+| `set_analog(stick?, x?, y?)` | stick: 0 left (default) / 1 right; x, y: -1 to 1 | Set an analog stick; (0,0) recenters it |
+| `get_input_state()` | -- | Held buttons (`buttons_hex`, `pressed`) and both stick positions |
+
+**Button names:** `cross` (`x`), `circle` (`o`), `square`, `triangle`, `up`, `down`, `left`, `right`, `start`, `select`, `ltrigger` (`l`), `rtrigger` (`r`). Combine with `+`, e.g. `"ltrigger+rtrigger"`.
+
+**Notes:**
+- `tap_button` and `input_sequence` need emulation **running** -- a press only registers while frames advance. They fail if the emulator is paused.
+- Sequence steps are `button`, `button:ms` or `wait:ms`, e.g. `"start, down, down, cross:200, wait:1500, circle"`. At most 64 steps and 60 seconds total; it stops early if a breakpoint pauses emulation.
+
 ## Thread Inspection (1 tool)
 
 | Tool | Parameters | Description |

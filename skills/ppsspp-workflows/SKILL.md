@@ -57,6 +57,8 @@ Use this after patching code to confirm patches were applied correctly in RAM.
 6. Alternatively, use `assemble()` to apply patches at runtime:
    - `assemble(address="0x08900000", instruction="li a0, 999")` -- write a new instruction directly
 
+**Tip:** After rebuilding the ISO at the same path, `load_game(path="...")` stops the running game and boots the new build in one call.
+
 **Tip:** For overlays loaded from disc at runtime, advance to the game state that triggers the overlay load first. Use `list_threads()` to see if the relevant module's thread is active.
 
 ## Workflow E: Inspect Thread State

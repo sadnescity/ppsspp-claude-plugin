@@ -10,12 +10,14 @@ Enable the MCP server in PPSSPP's developer settings. The default port is 27077.
 
 ## Communication Protocol
 
-The server operates via Streamable HTTP at the endpoint `POST http://localhost:27077/mcp` using JSON-RPC 2.0 format. The protocol version is `2024-11-05`.
+The server operates via Streamable HTTP at the endpoint `POST http://localhost:27077/mcp` using JSON-RPC 2.0 format. The server is stateless and implements MCP `2026-07-28`, while still accepting `initialize`-handshake clients on `2025-11-25`, `2025-06-18`, `2025-03-26` and `2024-11-05`.
+
+Tools carry `readOnlyHint`/`destructiveHint` annotations: inspection tools are read-only; `write_memory`, `write_register`, `assemble`, the save state loaders/savers and `load_game`/`unload_game` are marked destructive.
 
 ## Server Information
 
 - **Server name:** ppsspp
-- **Capabilities:** tools (36 tools)
+- **Capabilities:** tools (47 tools)
 - **Instructions from server:** "PPSSPP PSP Emulator MCP server. Provides tools for inspecting and controlling the emulated PSP. Memory addresses are in PSP address space (user RAM starts at 0x08800000)."
 
 ## Address Format
@@ -58,6 +60,9 @@ Hex format with `0x` prefix is recommended for readability.
 | Memory access | read_memory, write_memory | 2 |
 | Memory search | search_memory | 1 |
 | System status | get_status, get_game_info | 2 |
+| Game loading | load_game, unload_game | 2 |
+| Save states | save_state, load_state, list_save_states | 3 |
+| Controller input | press_button, release_button, tap_button, input_sequence, set_analog, get_input_state | 6 |
 | Threads | list_threads | 1 |
 | HLE modules | list_hle_modules | 1 |
 | Screenshots | take_screenshot | 1 |
@@ -66,14 +71,15 @@ Hex format with `0x` prefix is recommended for readability.
 | GPU state | get_gpu_state, get_gpu_stats, get_current_vertices, get_gpu_matrices | 4 |
 | Textures & buffers | get_current_texture, get_current_clut, get_depth_buffer, get_stencil_buffer | 4 |
 | GE breakpoints | set_ge_breakpoint, remove_ge_breakpoint, set_ge_break_on | 3 |
-| **Total** | | **36** |
+| **Total** | | **47** |
 
 ## Common Issues
 
 - Ensure the MCP server is enabled in PPSSPP settings before starting
 - **The CPU core must be set to Interpreter** -- JIT and IR JIT are not supported with MCP
 - Confirm port 27077 is not occupied by another service
-- The server only binds to localhost -- remote connections are not supported
+- The server only binds to localhost -- remote connections are not supported, and requests with a non-local `Origin` header get 403
+- Calling a tool name the server does not know returns JSON-RPC error `-32602` (invalid params)
 - Most tools need a game to be running -- load a game first if tools return errors
 - Memory read/write max size is 65536 bytes per call
 - GPU buffer dumps (framebuffer, texture, depth, stencil, CLUT) require the emulator to be paused

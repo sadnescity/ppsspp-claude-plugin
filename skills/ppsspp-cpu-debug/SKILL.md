@@ -5,7 +5,7 @@
 | Tool | Parameters | Description |
 |------|-----------|-------------|
 | `pause()` | -- | Pause emulation (break into stepping mode) |
-| `resume()` | -- | Resume emulation from paused/stepping state |
+| `resume()` | -- | Resume emulation from stepping state, or close PPSSPP's pause menu |
 | `step_into()` | -- | Step one instruction (into function calls). Must be paused first |
 
 **Notes:**
